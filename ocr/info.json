@@ -1,0 +1,95 @@
+{
+    "identifier": "com.saladict.bob.llm-ocr",
+    "version": "1.0.0",
+    "category": "ocr",
+    "name": "DeepSeek / GLM 识别",
+    "summary": "使用 DeepSeek / 智谱 GLM（Z.ai / open.bigmodel.cn）的 OpenAI 兼容视觉接口识别图片文字，支持普通与 Coding Plan 端点、自定义模型",
+    "author": "MinatoHikari",
+    "homepage": "https://github.com/MinatoHikari/bob-llmtranslation-ocr",
+    "minBobVersion": "0.5.0",
+    "options": [
+        {
+            "identifier": "endpoint",
+            "type": "menu",
+            "title": "接口",
+            "defaultValue": "zai",
+            "menuValues": [
+                {
+                    "title": "Z.ai 国际站 · 按量付费",
+                    "value": "zai"
+                },
+                {
+                    "title": "Z.ai 国际站 · Coding Plan",
+                    "value": "zai_coding"
+                },
+                {
+                    "title": "智谱中国站 · 按量付费",
+                    "value": "bigmodel"
+                },
+                {
+                    "title": "智谱中国站 · Coding Plan",
+                    "value": "bigmodel_coding"
+                },
+                {
+                    "title": "DeepSeek 官方 (deepseek-flash 视觉模型)",
+                    "value": "deepseek"
+                },
+                {
+                    "title": "自定义 (OpenAI 兼容，如本地 DeepSeek-OCR)",
+                    "value": "custom"
+                }
+            ]
+        },
+        {
+            "identifier": "customEndpoint",
+            "type": "text",
+            "title": "自定义接口地址 (选填，填了优先)",
+            "textConfig": {
+                "type": "visible",
+                "placeholderText": "如 http://127.0.0.1:8080/v1"
+            }
+        },
+        {
+            "identifier": "apiKey",
+            "type": "text",
+            "title": "API Key (本地服务可留空)",
+            "textConfig": {
+                "type": "secure"
+            }
+        },
+        {
+            "identifier": "model",
+            "type": "text",
+            "title": "模型 (选填，如 glm-4.6v / deepseek-flash)"
+        },
+        {
+            "identifier": "thinking",
+            "type": "menu",
+            "title": "深度思考 (仅 GLM 模型生效)",
+            "defaultValue": "disabled",
+            "menuValues": [
+                {
+                    "title": "关闭 (更快)",
+                    "value": "disabled"
+                },
+                {
+                    "title": "开启 (更准)",
+                    "value": "enabled"
+                },
+                {
+                    "title": "不发送参数 (由服务端决定)",
+                    "value": "auto"
+                }
+            ]
+        },
+        {
+            "identifier": "ocrPrompt",
+            "type": "text",
+            "title": "自定义识别提示词 (选填，留空使用 Free OCR.)",
+            "textConfig": {
+                "type": "visible",
+                "placeholderText": "Free OCR."
+            }
+        }
+    ]
+}

@@ -7,7 +7,21 @@ var ENDPOINTS = {
     zai: 'https://api.z.ai/api/paas/v4',
     zai_coding: 'https://api.z.ai/api/coding/paas/v4',
     bigmodel: 'https://open.bigmodel.cn/api/paas/v4',
-    bigmodel_coding: 'https://open.bigmodel.cn/api/coding/paas/v4'
+    bigmodel_coding: 'https://open.bigmodel.cn/api/coding/paas/v4',
+    zen: 'https://opencode.ai/zen/v1',
+    go: 'https://opencode.ai/zen/go/v1'
+};
+
+// 各端点默认模型：Zen/Go 网关上 chat/completions 路径最便宜的是 glm-5.3-flash
+// （GPT 系走 responses、Claude 系走 messages，本插件不支持）
+var DEFAULT_MODELS = {
+    deepseek: 'deepseek-chat',
+    zai: 'glm-4.7',
+    zai_coding: 'glm-4.7',
+    bigmodel: 'glm-4.7',
+    bigmodel_coding: 'glm-4.7',
+    zen: 'glm-5.3-flash',
+    go: 'glm-5.3-flash'
 };
 
 // 配置界面的下拉菜单默认只"显示"第一项，用户不点选不会写入配置，
@@ -81,8 +95,7 @@ function resolveModel() {
     var model = ($option.model || '').trim();
     if (model) return model;
     if (isCustomEndpoint()) throw errorObj('param', '使用自定义接口时请填写模型名称');
-    if (resolveEndpoint() === 'deepseek') return 'deepseek-chat';
-    return 'glm-4.7';
+    return DEFAULT_MODELS[resolveEndpoint()] || 'glm-4.7';
 }
 
 function errorObj(type, message) {

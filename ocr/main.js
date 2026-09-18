@@ -9,10 +9,24 @@ var ENDPOINTS = {
     zai: 'https://api.z.ai/api/paas/v4',
     zai_coding: 'https://api.z.ai/api/coding/paas/v4',
     bigmodel: 'https://open.bigmodel.cn/api/paas/v4',
-    bigmodel_coding: 'https://open.bigmodel.cn/api/coding/paas/v4'
+    bigmodel_coding: 'https://open.bigmodel.cn/api/coding/paas/v4',
+    zen: 'https://opencode.ai/zen/v1',
+    go: 'https://opencode.ai/zen/go/v1'
 };
 
 var DEFAULT_ENDPOINT = 'zai';
+
+// 各端点默认视觉模型：Zen 没有 deepseek-v4.1-flash，用 glm-5.3-flash；
+// Go 用 stable 的 deepseek-v4.1-flash（二者均支持图片输入）
+var DEFAULT_MODELS = {
+    deepseek: 'deepseek-flash',
+    zai: 'glm-4.6v',
+    zai_coding: 'glm-4.6v',
+    bigmodel: 'glm-4.6v',
+    bigmodel_coding: 'glm-4.6v',
+    zen: 'glm-5.3-flash',
+    go: 'deepseek-v4.1-flash'
+};
 
 // Bob 语言代码 -> 语言名（提示词用；识别本身按图自动识别语言）
 var LANGUAGE_NAMES = {
@@ -108,8 +122,7 @@ function resolveModel() {
     var model = ($option.model || '').trim();
     if (model) return model;
     if (isCustomEndpoint()) throw errorObj('param', '使用自定义接口时请填写模型名称（如 DeepSeek-OCR 填 deepseek-ai/DeepSeek-OCR-GGUF）');
-    if (resolveEndpoint() === 'deepseek') return 'deepseek-flash';
-    return 'glm-4.6v';
+    return DEFAULT_MODELS[resolveEndpoint()] || 'glm-4.6v';
 }
 
 function errorObj(type, message) {

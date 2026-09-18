@@ -6,14 +6,16 @@
 |---|---|---|
 | `translate/` | DeepSeek / GLM 翻译 | 文本翻译，支持任意模型 |
 | `ocr/` | DeepSeek / GLM 识别 | 截图/图片文字识别（OCR），走视觉模型 |
+| `baimiao/` | 白描 OCR | 白描网页版 v2 接口，账号/匿名模式，设备与会话持久化 |
 
 ## 特性
 
 - **DeepSeek 官方**：翻译用 `deepseek-chat`，识别用视觉模型 `deepseek-flash`（图片以 base64 data URL 传入，且仅出现在 user 消息中，符合官方要求）
 - **Z.ai 国际站**：按量付费 `https://api.z.ai/api/paas/v4` 与 **GLM Coding Plan** `https://api.z.ai/api/coding/paas/v4` 均已内置
 - **智谱中国站**：按量付费 `https://open.bigmodel.cn/api/paas/v4` 与 **Coding Plan** `https://open.bigmodel.cn/api/coding/paas/v4` 均已内置
+- **OpenCode Zen / Go**：按量付费网关 `https://opencode.ai/zen/v1` 与 **Go 订阅** `https://opencode.ai/zen/go/v1` 均已内置（订阅 Go 后从同一 Zen 控制台生成 API Key）
 - **自定义接口**：任意 OpenAI 兼容端点（自动补全 `/chat/completions`），可直连本地部署的 DeepSeek-OCR、llama-server、vLLM 等
-- **模型可自由填写**，默认值按所选接口自动匹配（翻译 `deepseek-chat` / `glm-4.7`，识别 `deepseek-flash` / `glm-4.6v`）
+- **模型可自由填写**，默认值按所选接口自动匹配（翻译 `deepseek-chat` / `glm-4.7` / Zen·Go `glm-5.3-flash`；识别 `deepseek-flash` / `glm-4.6v` / Zen `glm-5.3-flash` / Go `deepseek-v4.1-flash`）
 - GLM 模型自动关闭深度思考（`thinking: disabled`）提升速度；识别插件可手动改为"开启"或"不发送"
 - OCR 结果自动清洗模型自行附加的 `OCR Result` / `Translation` 标签与"顺手翻译"
 - Bob 支持同一插件添加多个实例（例如一个 DeepSeek、一个 GLM）并行对比
@@ -33,9 +35,13 @@
 | Z.ai 国际站 · Coding Plan | `https://api.z.ai/api/coding/paas/v4/chat/completions` | GLM Coding Plan（国际版）订阅页生成的 Key |
 | 智谱中国站 · 按量付费 | `https://open.bigmodel.cn/api/paas/v4/chat/completions` | [open.bigmodel.cn](https://open.bigmodel.cn) 的 API Key |
 | 智谱中国站 · Coding Plan | `https://open.bigmodel.cn/api/coding/paas/v4/chat/completions` | GLM Coding Plan（中国版）订阅页生成的 Key |
+| OpenCode Zen · 按量付费 | `https://opencode.ai/zen/v1/chat/completions` | [opencode.ai](https://opencode.ai) Zen 的 API Key |
+| OpenCode Go · 订阅 | `https://opencode.ai/zen/go/v1/chat/completions` | OpenCode Go（$10/月）订阅 API Key，与 Zen 同一控制台生成 |
 | 自定义 (OpenAI 兼容) | 填在「自定义接口地址」，如 `http://127.0.0.1:8080/v1` | 本地模型 / 第三方中转，Key 可留空 |
 
 自定义接口地址会自动补全 `/chat/completions`；如果填的已是完整路径则原样使用。
+
+> **OpenCode 网关说明**：Zen / Go 是聚合网关，仅走 OpenAI `chat/completions` 路径的模型（GLM、DeepSeek、Kimi、MiniMax 等）可用于本插件；GPT 系（`/responses`）、Claude 系（`/messages`）、Gemini 系（专用路径）不支持。识别插件默认模型按端点区分——Zen 上 `glm-5.3-flash`、Go 上 `deepseek-v4.1-flash`，两者均支持图片输入。
 
 > **注意**：Bob 的插件配置里，下拉菜单默认只是"显示"第一项，建议**点选一次**确认。即使不点选，插件也会按代码内置默认值工作（翻译默认 DeepSeek 官方 + `deepseek-chat`，识别默认 Z.ai 按量付费 + `glm-4.6v`）。
 
@@ -91,8 +97,9 @@ zip com.saladict.bob.llm-translate.bobplugin translate/info.json translate/main.
 ```
 translate/                     翻译插件源码（info.json + main.js + icon.png）
 ocr/                           识别插件源码
-test.mjs                       冒烟测试（bun test.mjs 或 node test.mjs）
-build.py                       打包脚本
+baimiao/                       白描 OCR 插件源码（含独立 build.py）
+test.mjs                       冒烟测试（bun test.mjs 或 node test.mjs，覆盖三个插件）
+build.py                       打包脚本（translate + ocr）
 .github/workflows/build.yml    CI：自动打包，tag 时自动发布 Release
 ```
 

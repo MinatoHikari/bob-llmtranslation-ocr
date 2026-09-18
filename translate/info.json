@@ -1,9 +1,9 @@
 {
     "identifier": "com.saladict.bob.llm-translate",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "category": "translate",
     "name": "DeepSeek / GLM 翻译",
-    "summary": "使用 DeepSeek / 智谱 GLM（Z.ai / open.bigmodel.cn）的 OpenAI 兼容接口翻译，支持普通与 Coding Plan 端点、自定义模型",
+    "summary": "使用 DeepSeek / 智谱 GLM（Z.ai / open.bigmodel.cn）/ OpenCode Zen · Go 的 OpenAI 兼容接口翻译，支持普通与 Coding Plan 端点、自定义模型",
     "author": "MinatoHikari",
     "homepage": "https://github.com/MinatoHikari/bob-llmtranslation-ocr",
     "minBobVersion": "0.5.0",
@@ -33,6 +33,14 @@
                 {
                     "title": "智谱中国站 · Coding Plan",
                     "value": "bigmodel_coding"
+                },
+                {
+                    "title": "OpenCode Zen · 按量付费",
+                    "value": "zen"
+                },
+                {
+                    "title": "OpenCode Go · 订阅 (与 Zen 同 Key)",
+                    "value": "go"
                 },
                 {
                     "title": "自定义 (OpenAI 兼容)",

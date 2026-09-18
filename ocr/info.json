@@ -1,9 +1,9 @@
 {
     "identifier": "com.saladict.bob.llm-ocr",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "category": "ocr",
     "name": "DeepSeek / GLM 识别",
-    "summary": "使用 DeepSeek / 智谱 GLM（Z.ai / open.bigmodel.cn）的 OpenAI 兼容视觉接口识别图片文字，支持普通与 Coding Plan 端点、自定义模型",
+    "summary": "使用 DeepSeek / 智谱 GLM（Z.ai / open.bigmodel.cn）/ OpenCode Zen · Go 的 OpenAI 兼容视觉接口识别图片文字，支持普通与 Coding Plan 端点、自定义模型",
     "author": "MinatoHikari",
     "homepage": "https://github.com/MinatoHikari/bob-llmtranslation-ocr",
     "minBobVersion": "0.5.0",
@@ -29,6 +29,14 @@
                 {
                     "title": "智谱中国站 · Coding Plan",
                     "value": "bigmodel_coding"
+                },
+                {
+                    "title": "OpenCode Zen · 按量付费 (glm-5.3-flash 视觉)",
+                    "value": "zen"
+                },
+                {
+                    "title": "OpenCode Go · 订阅 (deepseek-v4.1-flash 视觉)",
+                    "value": "go"
                 },
                 {
                     "title": "DeepSeek 官方 (deepseek-flash 视觉模型)",

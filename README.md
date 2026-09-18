@@ -6,7 +6,8 @@
 |---|---|---|
 | `translate/` | DeepSeek / GLM 翻译 | 文本翻译，支持任意模型 |
 | `ocr/` | DeepSeek / GLM 识别 | 截图/图片文字识别（OCR），走视觉模型 |
-| `baimiao/` | 白描 OCR | 白描网页版 v2 接口，账号/匿名模式，设备与会话持久化 |
+
+白描 OCR 插件（Bob 版）在独立仓库 [bob-baimiao-ocrv2](https://github.com/MinatoHikari/bob-baimiao-ocrv2)。
 
 ## 特性
 
@@ -97,9 +98,8 @@ zip com.saladict.bob.llm-translate.bobplugin translate/info.json translate/main.
 ```
 translate/                     翻译插件源码（info.json + main.js + icon.png）
 ocr/                           识别插件源码
-baimiao/                       白描 OCR 插件源码（含独立 build.py）
-test.mjs                       冒烟测试（bun test.mjs 或 node test.mjs，覆盖三个插件）
-build.py                       打包脚本（translate + ocr）
+test.mjs                       冒烟测试（bun test.mjs 或 node test.mjs）
+build.py                       打包脚本
 .github/workflows/build.yml    CI：自动打包，tag 时自动发布 Release
 ```
 

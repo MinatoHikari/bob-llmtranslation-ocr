@@ -16,9 +16,7 @@ jobs:
         with:
           python-version: '3.x'
       - name: Package .bobplugin
-        run: |
-          python build.py
-          python baimiao/build.py
+        run: python build.py
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
